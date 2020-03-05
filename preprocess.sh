@@ -6,6 +6,11 @@ cd `dirname $0`
 
 mkdir -p processed
 
-python3.6 preprocessImage.py -in "$1" -out "./processed/$2"
+for file in ./images/Original/*; do
+  {
+    python3.6 preprocessImage.py -in "./images/Original/${file##*/}" -mask "./images/Mask/${file##*/}" -out "./images/processed/${file##*/}"
+  }
+done
 
-#example: bash preprocess.sh test.jpg test.png
+
+
