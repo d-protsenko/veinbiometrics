@@ -1,0 +1,16 @@
+<h2><a href="/add">Add a new one</a></h2>
+
+{% if objects %}
+<ul>
+    {% for obj in objects %}
+    <li>
+        <h4>{{ obj.name }}</h4>
+        <h6>created: {{ obj.created_at }}</h6>
+        <h4>Original</h4>
+        <img src="{{ obj.orig }}" alt="img">
+        <h4>Processed</h4>
+        <img src="{{ obj.processed }}" alt="img">
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}

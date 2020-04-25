@@ -131,3 +131,6 @@ dmypy.json
 # idea
 **/.idea
 **/*.iml
+
+# static and media
+/biometrics/media/*
