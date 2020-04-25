@@ -1,6 +1,6 @@
-import numpy as np
 from argparse import ArgumentParser
 import cv2
+import os
 
 defaultCLAHEValue = 4
 
@@ -35,26 +35,36 @@ def multi_clahe(img, num):
     return img
 
 
-def view_image(image):
-    cv2.namedWindow('Display', cv2.WINDOW_NORMAL)
-    cv2.imshow('Display', image)
+def view_image(image, name):
+    cv2.namedWindow(name, cv2.WINDOW_NORMAL)
+    cv2.imshow(name, image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 
+def main_gauss():
+    args = parse_arguments()
+    img = cv2.imread('./images/Original/1_1_f1_2.bmp', 0)
+    img = cv2.medianBlur(img, 5)
+    th_gauss = cv2.adaptiveThreshold(
+        img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        cv2.THRESH_BINARY, 11, 2)
+    view_image(th_gauss, 'gauss')
+
+
 def main():
     args = parse_arguments()
-
     img = cv2.imread(args.input_image)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    cv2.fastNlMeansDenoising(gray, gray, 2)
-
-    mask = cv2.imread(args.mask, 0)
+    cv2.fastNlMeansDenoising(gray, gray, 4)
+    mask = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    cv2.threshold(gray, thresh=145, maxval=255, type=cv2.THRESH_BINARY, dst=mask)
+    cv2.bitwise_not(mask, mask)
     clahed = multi_clahe(gray, defaultCLAHEValue)
-    res = cv2.bitwise_and(clahed, clahed, mask=mask)
-    cv2.imwrite(args.output_image, res)
-    # view_image(res)
-    # bash preprocess.sh 1.bmp
+    final = cv2.bitwise_and(clahed, clahed, mask=mask)
+    cv2.imwrite(final, args.output_image)
+    # view_image(final, 'processed image')
+
 
 
 if __name__ == '__main__':
