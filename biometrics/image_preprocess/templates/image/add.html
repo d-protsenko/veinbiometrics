@@ -1,5 +1,9 @@
-<form enctype="multipart/form-data" action="/add" method="post" style="display: flex; flex-direction:column; width: 200px">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
+{% extends "../base.html" %}
+
+{% block content %}
+    <form enctype="multipart/form-data" action="/add" method="post" style="display: flex; flex-direction:column; width: 200px">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock content %}

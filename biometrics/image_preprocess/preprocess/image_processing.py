@@ -35,6 +35,7 @@ def preprocess(path,
                upper_thresh,
                denoise_lvl=defaultDenoiseLevel,
                clahe_number=defaultCLAHEValue):
+    # TODO: fix problem with path's
     input_img = read(path)
     gray = cv2.cvtColor(input_img, cv2.COLOR_BGR2GRAY)  # convert image color to gray
     cv2.fastNlMeansDenoising(gray, gray, denoise_lvl)  # denoise image

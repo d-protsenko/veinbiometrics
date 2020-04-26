@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Image, ProcessedImage
+from .models import Image
 
 admin.site.register(Image)
-admin.site.register(ProcessedImage)

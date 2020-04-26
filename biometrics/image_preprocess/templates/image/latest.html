@@ -1,16 +1,31 @@
-<h2><a href="/add">Add a new one</a></h2>
+{% extends "../base.html" %}
 
-{% if objects %}
-<ul>
-    {% for obj in objects %}
-    <li>
-        <h4>{{ obj.name }}</h4>
-        <h6>created: {{ obj.created_at }}</h6>
-        <h4>Original</h4>
-        <img src="{{ obj.orig }}" alt="img">
-        <h4>Processed</h4>
-        <img src="{{ obj.processed }}" alt="img">
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+{% block content %}
+    {% if objects %}
+        {% for obj in objects %}
+            <article class="media content-section">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <h2>{{ obj.name }}</h2>
+                  <span class="mr-2">Finger biometric</span>
+                  <small class="text-muted">Created: {{ obj.created_at }}</small>
+                </div>
+                <div class="parameters">
+                    <h3>Parameters</h3>
+                    <h4>Threshold</h4>
+                    <span class="thresh-param">Lower: {{ obj.params.lower }}</span>
+                    <span class="thresh-param">Upper: {{ obj.params.upper }}</span>
+                </div>
+                <div>
+                    <h2><span class="article-title">Original</span></h2>
+                    <img src="{{ obj.orig }}" alt="img" class="article-content">
+                </div>
+                <div>
+                    <h2><span class="article-title">After preprocessing</span></h2>
+                    <img src="{{ obj.processed }}" alt="img" class="article-content">
+                </div>
+              </div>
+            </article>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

@@ -44,7 +44,7 @@ def view_image(image, name):
 
 def main_gauss():
     args = parse_arguments()
-    img = cv2.imread('./images/Original/1_1_f1_2.bmp', 0)
+    img = cv2.imread('./image.bmp', 0)
     img = cv2.medianBlur(img, 5)
     th_gauss = cv2.adaptiveThreshold(
         img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,

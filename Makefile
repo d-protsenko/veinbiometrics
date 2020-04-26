@@ -24,4 +24,4 @@ connect-to-db:
 .PHONY: start_server
 
 start_server:
-	python ./biometrics/manage.py runserver 8080
+	cd biometrics && python manage.py runserver 8080
