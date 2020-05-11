@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+
+{% block content %}
+<article class="media content-section">
+    <div class="media-body">
+        <form enctype="multipart/form-data" action="/add" method="post" class="empty-form" style="width: 300px">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-group">
+                <label for="{{ form.image.id_for_label }}">Biometric image file:</label>
+                <div class="custom-file">
+                    {{ form.image.errors }}
+                    <label for="{{ form.image.id_for_label }}" class="custom-file-label">Choose image</label>
+                    {{ form.image }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.name.errors }}
+                <label for="{{ form.name.id_for_label }}">Biometric name:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                {{ form.lower_thresh.errors }}
+                <label for="{{ form.lower_thresh.id_for_label }}">Set lower threshold param:</label>
+                {{ form.lower_thresh }}
+            </div>
+            <div class="form-group">
+                {{ form.upper_thresh.errors }}
+                <label for="{{ form.upper_thresh.id_for_label }}">Set upper threshold param:</label>
+                {{ form.upper_thresh }}
+            </div>
+            <div class="form-group">
+                {{ form.denoise_lvl.errors }}
+                <label for="{{ form.denoise_lvl.id_for_label }}">Set lvl of denoising:</label>
+                {{ form.denoise_lvl }}
+            </div>
+            <div class="form-group">
+                {{ form.clahe_lvl.errors }}
+                <label for="{{ form.clahe_lvl.id_for_label }}">Set number CLAHE cycles:</label>
+                {{ form.clahe_lvl }}
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+</article>
+{% endblock content %}
