@@ -42,30 +42,29 @@ def view_image(image, name):
     cv2.destroyAllWindows()
 
 
-def main_gauss():
-    args = parse_arguments()
-    img = cv2.imread('./image.bmp', 0)
-    img = cv2.medianBlur(img, 5)
+def gauss_process(image):
+    img = cv2.medianBlur(image, 5)
     th_gauss = cv2.adaptiveThreshold(
         img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
         cv2.THRESH_BINARY, 11, 2)
-    view_image(th_gauss, 'gauss')
+    view_image(th_gauss, 'gauss image')
 
 
 def main():
     args = parse_arguments()
-    img = cv2.imread(args.input_image)
+    img = cv2.imread('./image.bmp')
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cv2.fastNlMeansDenoising(gray, gray, 4)
     mask = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    cv2.threshold(gray, thresh=145, maxval=255, type=cv2.THRESH_BINARY, dst=mask)
+    cv2.threshold(gray, thresh=170, maxval=255, type=cv2.THRESH_BINARY, dst=mask)
     cv2.bitwise_not(mask, mask)
+    view_image(mask, 'mask')
     clahed = multi_clahe(gray, defaultCLAHEValue)
     final = cv2.bitwise_and(clahed, clahed, mask=mask)
-    cv2.imwrite(final, args.output_image)
-    # view_image(final, 'processed image')
-
+    # cv2.imwrite(final, args.output_image)
+    view_image(final, 'preprocessed image')
+    return final
 
 
 if __name__ == '__main__':
-    main()
+    gauss_process(main())

@@ -29,14 +29,25 @@ def convert_cv_to_pil(img):
     return Image.fromarray(img)
 
 
-def preprocess(path,
-               output_path,
+def gauss_process(image):
+    img = cv2.medianBlur(image, 5)
+    th_gauss = cv2.adaptiveThreshold(
+        img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        cv2.THRESH_BINARY, 11, 2)
+    return th_gauss
+
+
+def preprocess(input_path,
+               preprocessed_path,
+               gauss_path,
                lower_thresh,
                upper_thresh,
                denoise_lvl=defaultDenoiseLevel,
-               clahe_number=defaultCLAHEValue):
+               clahe_lvl=defaultCLAHEValue):
     # TODO: fix problem with path's
-    input_img = read(path)
+    # TODO: check possibility of loading files with not only english names
+    # or add an regexp check on field
+    input_img = read(input_path)
     gray = cv2.cvtColor(input_img, cv2.COLOR_BGR2GRAY)  # convert image color to gray
     cv2.fastNlMeansDenoising(gray, gray, denoise_lvl)  # denoise image
     mask = cv2.cvtColor(input_img, cv2.COLOR_BGR2GRAY)
@@ -46,6 +57,7 @@ def preprocess(path,
                   type=cv2.THRESH_BINARY,
                   dst=mask)  # get mask by color threshold
     cv2.bitwise_not(mask, mask)  # revert mask
-    clahed = multi_clahe(gray, clahe_number)
+    clahed = multi_clahe(gray, clahe_lvl)
     final = cv2.bitwise_and(clahed, clahed, mask=mask)
-    return write(output_path, final)
+    write(preprocessed_path, final)
+    write(gauss_path, gauss_process(final))

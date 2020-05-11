@@ -1,4 +1,5 @@
 from django.contrib import admin
-from .models import Image
+from .models import LoadedImage, Biometric
 
-admin.site.register(Image)
+admin.site.register(LoadedImage)
+admin.site.register(Biometric)
