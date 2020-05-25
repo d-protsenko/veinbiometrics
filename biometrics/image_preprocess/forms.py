@@ -57,6 +57,26 @@ class AddImageForm(forms.Form):
             }
         )
     )
+    gauss_block_size = forms.IntegerField(
+        min_value=1,
+        max_value=41,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'value': 27,
+            }
+        )
+    )
+    gauss_constant = forms.IntegerField(
+        min_value=-40,
+        max_value=40,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'value': 8,
+            }
+        )
+    )
     # def form_valid(self, form):
     #     form.instance.created_by = self.request.user
     #     return super().form_valid(form)

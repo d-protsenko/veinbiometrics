@@ -20,24 +20,36 @@
                 {{ form.name }}
             </div>
             <div class="form-group">
-                {{ form.lower_thresh.errors }}
-                <label for="{{ form.lower_thresh.id_for_label }}">Set lower threshold param:</label>
-                {{ form.lower_thresh }}
-            </div>
-            <div class="form-group">
-                {{ form.upper_thresh.errors }}
-                <label for="{{ form.upper_thresh.id_for_label }}">Set upper threshold param:</label>
-                {{ form.upper_thresh }}
-            </div>
-            <div class="form-group">
                 {{ form.denoise_lvl.errors }}
-                <label for="{{ form.denoise_lvl.id_for_label }}">Set lvl of denoising:</label>
+                <label for="{{ form.denoise_lvl.id_for_label }}">Lvl of denoising:</label>
                 {{ form.denoise_lvl }}
             </div>
             <div class="form-group">
                 {{ form.clahe_lvl.errors }}
-                <label for="{{ form.clahe_lvl.id_for_label }}">Set number CLAHE cycles:</label>
+                <label for="{{ form.clahe_lvl.id_for_label }}">Number of CLAHE cycles:</label>
                 {{ form.clahe_lvl }}
+            </div>
+            <h5 class="title">Base threshold function params</h5>
+            <div class="form-group">
+                {{ form.lower_thresh.errors }}
+                <label for="{{ form.lower_thresh.id_for_label }}">Lower threshold param:</label>
+                {{ form.lower_thresh }}
+            </div>
+            <div class="form-group">
+                {{ form.upper_thresh.errors }}
+                <label for="{{ form.upper_thresh.id_for_label }}">Upper threshold param:</label>
+                {{ form.upper_thresh }}
+            </div>
+            <h5 class="title">Gauss threshold function params</h5>
+            <div class="form-group">
+                {{ form.gauss_block_size.errors }}
+                <label for="{{ form.gauss_block_size.id_for_label }}">Block size</label>
+                {{ form.gauss_block_size }}
+            </div>
+            <div class="form-group">
+                {{ form.gauss_constant.errors }}
+                <label for="{{ form.gauss_constant.id_for_label }}">Gauss constant</label>
+                {{ form.gauss_constant }}
             </div>
             <input type="submit" value="Submit" class="btn btn-primary">
         </form>
