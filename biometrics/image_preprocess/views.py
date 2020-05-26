@@ -28,6 +28,8 @@ def index(request):
                     'upper': x.upper_thresh,
                     'denoise': x.denoise_lvl,
                     'clahe': x.clahe_lvl,
+                    'gauss_block_size': x.gauss_block_size,
+                    'gauss_constant': x.gauss_constant,
                 }
             }
         )
