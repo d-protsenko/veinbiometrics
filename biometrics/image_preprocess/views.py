@@ -21,11 +21,15 @@ def index(request):
                 'orig': x.image_url,
                 'preprocessed': x.preprocessed_url,
                 'gauss': x.gauss_url,
+                'grabcut': x.grabcut_url,
+                'grabcut_gauss': x.grabcut_gauss_url,
                 'params': {
                     'lower': x.lower_thresh,
                     'upper': x.upper_thresh,
                     'denoise': x.denoise_lvl,
                     'clahe': x.clahe_lvl,
+                    'gauss_block_size': x.gauss_block_size,
+                    'gauss_constant': x.gauss_constant,
                 }
             }
         )
@@ -46,6 +50,8 @@ def add_image(request: HttpRequest):
             upper_thresh = clean_data['upper_thresh']
             denoise_lvl = clean_data['denoise_lvl']
             clahe_lvl = clean_data['clahe_lvl']
+            gauss_block_size = clean_data['gauss_block_size']
+            gauss_constant = clean_data['gauss_constant']
             new_image = LoadedImage(
                 id=linked_id,
                 created_at=timezone.now(),
@@ -59,14 +65,22 @@ def add_image(request: HttpRequest):
             preprocessed_output_path = './media/preprocessed/' + img_name
             gauss_url = '/media/gauss/' + img_name
             gauss_output_path = './media/gauss/' + img_name
+            grabcut_url = '/media/grabcut/' + img_name
+            grabcut_output_path = './media/grabcut/' + img_name
+            grabcut_gauss_url = '/media/grabcut_gauss/' + img_name
+            grabcut_gauss_output_path = './media/grabcut_gauss/' + img_name
             image_processing.preprocess(
                 input_path=input_img,
                 preprocessed_path=preprocessed_output_path,
                 gauss_path=gauss_output_path,
+                grabcut_path=grabcut_output_path,
+                grabcut_gauss_output_path=grabcut_gauss_output_path,
                 lower_thresh=lower_thresh,
                 upper_thresh=upper_thresh,
                 denoise_lvl=denoise_lvl,
-                clahe_lvl=clahe_lvl
+                clahe_lvl=clahe_lvl,
+                gauss_block_size=gauss_block_size,
+                gauss_constant=gauss_constant
             )
             new_biometric = Biometric(
                 id=linked_id,
@@ -76,10 +90,14 @@ def add_image(request: HttpRequest):
                 image_url=img_url,
                 preprocessed_url=preprocessed_url,
                 gauss_url=gauss_url,
+                grabcut_url=grabcut_url,
+                grabcut_gauss_url=grabcut_gauss_url,
                 lower_thresh=lower_thresh,
                 upper_thresh=upper_thresh,
                 denoise_lvl=denoise_lvl,
-                clahe_lvl=clahe_lvl
+                clahe_lvl=clahe_lvl,
+                gauss_block_size=gauss_block_size,
+                gauss_constant=gauss_constant
             )
             new_biometric.save()
             return HttpResponseRedirect('/')

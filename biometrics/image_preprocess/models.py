@@ -11,8 +11,12 @@ class Biometric(models.Model):
     upper_thresh = models.IntegerField()
     denoise_lvl = models.IntegerField()
     clahe_lvl = models.IntegerField()
+    gauss_block_size = models.IntegerField()
+    gauss_constant = models.IntegerField()
     preprocessed_url = models.CharField(max_length=256)
     gauss_url = models.CharField(max_length=256)
+    grabcut_url = models.CharField(max_length=256)
+    grabcut_gauss_url = models.CharField(max_length=256)
 
 
 class LoadedImage(models.Model):
